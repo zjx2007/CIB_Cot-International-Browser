@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "pack": "electron-packager . Cot-International-Browser --win --out ./built --app-version 1.0.3 --overwrite --icon bin/icon.png --asar   &&   xcopy bin built\\Cot-International-Browser-win32-x64\\bin\\"
+    "pack": "electron-packager . Cot-International-Browser --all --out ./built --app-version 1.0.3 --overwrite --icon bin/icon.png --asar   &&   xcopy bin built\\Cot-International-Browser-win32-x64\\bin\\"
   },
   "author": "Cot",
   "dependencies": {
