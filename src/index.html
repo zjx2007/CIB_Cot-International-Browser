@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>小喵国际浏览器</title>
+    <script type="text/javascript">
+        const {
+            ipcRenderer,
+            app
+        } = require("electron");
+    </script>
+        <link rel="stylesheet" type="text/css" href="naranja.min.css">
+        <link rel="stylesheet" type="text/css" href="smalltalk.css">        <script src="naranja.js"></script>
+</head>
+
+<body>
+    <style type="text/css">
+        ::-webkit-scrollbar {
+            width: 9px;
+            height: 9px;
+            background: #282923;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #282923;
+            border-radius: 4px;
+        }
+
+        :hover::-webkit-scrollbar-thumb {
+            background: rgba(136, 136, 136, 0.4);
+        }
+
+        :hover::-webkit-scrollbar-track {
+            background: rgba(136, 136, 136, 0.1);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            display: block;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        * {
+            transition: 0.3s;
+        }
+
+        body {
+            font-family: 'SEgoe';
+            background-color: #282923;
+            color: white;
+        }
+
+        @font-face {
+            font-family: 'SEgoe';
+            src: url('segoeuil.ttf');
+        }
+
+        .titlebar {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            height: 30px;
+            -webkit-app-region: drag;
+            background-color: #282923;
+            color: white;
+            z-index: 50000;
+        }
+
+        .titlebar span {
+            color: white;
+            position: absolute;
+            top: 6px;
+            margin-left: 7px;
+            font-size: 14px;
+        }
+
+        .controlbtn {
+            width: 45px;
+            height: 29px;
+            position: absolute;
+            -webkit-app-region: none;
+            background-color: #282923;
+            -webkit-user-select: none;
+        }
+
+        #closebtn {
+            right: 1px;
+            top: 1px;
+        }
+
+        #closebtn:hover {
+            background-color: rgba(255, 50, 50, .5);
+        }
+
+        #closebtn:active {
+            background-color: rgba(255, 150, 150, .7);
+        }
+
+        .panelistic_btngroup {
+            overflow: hidden;
+            display: block;
+            user-select: none;
+            position: relative;
+            margin-top: -5px;
+        }
+
+
+        .panelistic_btn {
+            overflow: hidden;
+            display: block;
+            user-select: none;
+            position: relative;
+        }
+
+        .panelistic {
+            border: 1px solid #323328;
+            margin: 6px;
+            border-radius: 4px;
+            text-align: left;
+            cursor: pointer;
+            padding-right: 5px;
+        }
+
+        .panelistic:hover {
+            background-color: #4d4d4d;
+        }
+
+        .panelistic_space {
+            height: 30px;
+            width: 50px;
+            display: block;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .panelistic:active {
+            background-color: #777;
+        }
+
+        .panelistic span {
+            position: absolute;
+            margin-top: 4px;
+            margin-left: 5px;
+        }
+
+        .panelistic img {
+            margin-top: 4px;
+            margin-left: 5px;
+        }
+
+        #minbtn {
+            right: 91px;
+            top: 1px;
+        }
+
+        #maxbtn {
+            right: 46px;
+            top: 1px;
+        }
+
+        #closebtn {
+            right: 1px;
+            top: 1px;
+        }
+
+        #defullbtn {
+            right: 46px;
+            top: 1px;
+        }
+
+        #minbtn:hover {
+            background-color: rgba(100, 100, 100, .5);
+        }
+
+        #maxbtn:hover {
+            background-color: rgba(100, 100, 100, .5);
+        }
+
+        #closebtn:hover {
+            background-color: rgba(255, 50, 50, .5);
+        }
+
+        #defullbtn:hover {
+            background-color: rgba(100, 100, 100, .5);
+        }
+
+        #minbtn:active {
+            background-color: rgba(200, 200, 200, .7);
+        }
+
+        #maxbtn:active {
+            background-color: rgba(200, 200, 200, .7);
+        }
+
+        #closebtn:active {
+            background-color: rgba(255, 150, 150, .7);
+        }
+
+        #defullbtn:active {
+            background-color: rgba(200, 200, 200, .7);
+        }
+
+        body select {
+            outline: none;
+            background-color: #28292355;
+            border: 1px dashed #ddd;
+            color: white;
+            border-radius: 3px;
+            min-width: 40%;
+            padding: 5px;
+            margin: 5px;
+            user-select: all;
+            appearance: none;
+        }
+
+        input {
+            background-color: #282923;
+            color: #fff;
+            border: none;
+            margin: none;
+            padding: none;
+            border-color: #282923;
+            width: 100%;
+        }
+
+        .cbox {
+            width: 10000px;
+        }
+
+        #webi:hover {
+            background-color: #4d4d4d;
+        }
+
+        #webi:active {
+            background-color: #777;
+        }
+
+        #webgo::-webkit-input-placeholder{
+            color: white;
+        }
+
+        .bottombar{
+            position: absolute;
+            color: white;
+            bottom: 0px;
+            font-size: 14px;
+        }
+
+        .bottombar-a{
+            left: 3px;
+        }
+
+        .bottombar-b{
+            left: 120px;
+        }
+
+        .bottombar-c{
+            left: 250px;
+        }
+
+        .bottombar-right{
+            right: 3px;
+        }
+    </style>
+    <div class="titlebar">
+        <img src="../bin/icon.png" height="20" style="margin-top: 6px;margin-left: 8px;">
+        <span id="titletext">小喵国际浏览器</span>
+        <img src="img/window/min.png" class="controlbtn" id="minbtn">
+        <img src="img/window/max.png" class="controlbtn" id="maxbtn">
+        <img src="img/window/Close.svg" class="controlbtn" id="closebtn">
+        <img src="img/window/defull.png" class="controlbtn" id="defullbtn" style="display: none;" onclick="elect.ipcRenderer.send('fullscr');">
+    </div>
+    <div class="panelistic_space"></div>
+    <table class="panelistic_btngroup" id="panelistic_btngroup">
+        <tr>
+            <td class="panelistic" onclick="webview.goBack()"><img width="20px" height="20px" src="img/back.png" style="filter:drop-shadow(white 2000px 0);transform: translateX(-2000px)"></td>
+            <td class="panelistic" onclick="webview.goForward()"><img width="20px" height="20px" src="img/forw.png" style="filter:drop-shadow(white 2000px 0);transform: translateX(-2000px)"></td>
+            <td class="panelistic" onclick="window.open('index.html')"><img width="20px" height="20px" src="img/addt.png" style="filter:drop-shadow(white 2000px 0);transform: translateX(-2000px)"></td>
+            <td class="panelistic" id="ref" oncontextmenu="webview.reloadIgnoringCache()" onclick="webview.reload();"><img width="20px" height="20px" src="img/refr.png" style="filter:drop-shadow(white 2000px 0);transform: translateX(-2000px)"></td>
+            <td class="panelistic" onclick="nothing()" id="ipns" style="background-color: rgb(213,165,0);"><img width="20px" height="20px" src="img/line.png" style="filter:drop-shadow(white 2000px 0);transform: translateX(-2000px)"></td>
+            <td class="panelistic"><input onclick="this.select()" id="webi" tabindex="-1" type="text" placeholder="请输入网址或要搜索的内容" style="width: 99999px;
+            height: 24px;outline: none; "></td>
+            <td class="panelistic"><input onclick="webview.loadURL(loadbtn(__('webi')))" id="webgo" tabindex="-1" type="text" placeholder=" 访问" style="width: 29px;height: 24px;outline: none;background-color: #00000000;cursor: pointer;" onfocus="this.blur()"></td>
+            <td class="panelistic" id="menubtn"><img width="20px" height="20px" src="img/more.png" style="filter:drop-shadow(white 2000px 0);transform: translateX(-2000px)"></td>
+        </tr>
+    </table>
+    <webview disablewebsecurity plugins webpreferences="allowRunningInsecureContent" useragent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) CotBrowser/2.5.7 CotInternationalBrowser/1.0.2" id="webv" src="http://www.baidu.com" style="display:inline-flex; width: calc(100%);height:999999px;margin-top: 10px;background-color: white;position: absolute;left: 0px;right: 0px;"></webview>
+    <br>
+    <span class="bottombar bottombar-a" id="bottombar-a">当前模式UDF</span>
+    <span class="bottombar bottombar-b" id="bottombar-b">该网站代理失败</span>
+    <span class="bottombar bottombar-c" id="bottombar-c">加载中</span>
+    <span class="bottombar bottombar-right" id="bottombar-right">连接中</span>
+    <script type="text/javascript">
+        const $ = require('./jqmin.js')
+        const smtk = require('./smalltalk.js');
+        let webview = _("webv");
+
+        function nothing() {
+
+        }
+
+        function _(thi) {
+            return document.getElementById(thi);
+        }
+
+        function __(thi) {
+            return document.getElementById(thi).value;
+        }
+    </script>
+    <script src="window.js"></script>
+</body>
+
+</html>

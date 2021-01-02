@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>小喵国际浏览器 欢迎</title>
+    <script type="text/javascript">
+        const {
+            ipcRenderer,
+            app
+        } = require("electron");
+    </script>
+</head>
+
+<body>
+    <style type="text/css">
+        ::-webkit-scrollbar {
+            width: 9px;
+            height: 9px;
+            background: #282923;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #282923;
+            border-radius: 4px;
+        }
+
+        :hover::-webkit-scrollbar-thumb {
+            background: rgba(136, 136, 136, 0.4);
+        }
+
+        :hover::-webkit-scrollbar-track {
+            background: rgba(136, 136, 136, 0.1);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            display: block;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        * {
+            transition: 0.3s;
+        }
+
+        body {
+            font-family: 'SEgoe';
+            background-color: #282923;
+            color: white;
+        }
+
+        @font-face {
+            font-family: 'SEgoe';
+            src: url('segoeuil.ttf');
+        }
+
+        .titlebar {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            height: 30px;
+            -webkit-app-region: drag;
+            background-color: #282923;
+            color: white;
+            z-index: 50000;
+        }
+
+        .titlebar span {
+            color: white;
+            position: absolute;
+            top: 6px;
+            margin-left: 7px;
+            font-size: 14px;
+        }
+
+        .controlbtn {
+            width: 45px;
+            height: 29px;
+            position: absolute;
+            -webkit-app-region: none;
+            background-color: #282923;
+            -webkit-user-select: none;
+        }
+
+        #closebtn {
+            right: 1px;
+            top: 1px;
+        }
+
+        #closebtn:hover {
+            background-color: rgba(255, 50, 50, .5);
+        }
+
+        #closebtn:active {
+            background-color: rgba(255, 150, 150, .7);
+        }
+
+        .panelistic_btngroup {
+            top: 5px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            ` display: block;
+            user-select: none;
+            position: relative;
+        }
+
+
+        .panelistic_btn {
+            top: 36px;
+            width: 435px;
+            height: 95px;
+            overflow: hidden;
+            display: block;
+            user-select: none;
+            position: relative;
+        }
+
+        .panelistic {
+            border: 1px solid #323328;
+            margin: 6px;
+            border-radius: 4px;
+            padding: 2px;
+            padding-left: 4px;
+            padding-right: 4px;
+            top: 14px;
+            text-align: left;
+            cursor: pointer;
+            width: ;
+        }
+
+        .panelistic:hover {
+            background-color: #4d4d4d;
+        }
+
+        .panelistic_space {
+            height: 30px;
+            width: 50px;
+            display: block;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .panelistic:active {
+            background-color: #777;
+        }
+
+        .panelistic span {
+            position: absolute;
+            margin-top: 4px;
+            margin-left: 5px;
+        }
+
+        .panelistic img {
+            margin-top: 4px;
+            margin-left: 5px;
+        }
+
+        #minbtn {
+            right: 91px;
+            top: 1px;
+        }
+
+        #maxbtn {
+            right: 46px;
+            top: 1px;
+        }
+
+        #closebtn {
+            right: 1px;
+            top: 1px;
+        }
+
+        #defullbtn {
+            right: 46px;
+            top: 1px;
+        }
+
+        #minbtn:hover {
+            background-color: rgba(100, 100, 100, .5);
+        }
+
+        #maxbtn:hover {
+            background-color: rgba(100, 100, 100, .5);
+        }
+
+        #closebtn:hover {
+            background-color: rgba(255, 50, 50, .5);
+        }
+
+        #defullbtn:hover {
+            background-color: rgba(100, 100, 100, .5);
+        }
+
+        #minbtn:active {
+            background-color: rgba(200, 200, 200, .7);
+        }
+
+        #maxbtn:active {
+            background-color: rgba(200, 200, 200, .7);
+        }
+
+        #closebtn:active {
+            background-color: rgba(255, 150, 150, .7);
+        }
+
+        #defullbtn:active {
+            background-color: rgba(200, 200, 200, .7);
+        }
+
+        body select {
+            outline: none;
+            background-color: #28292355;
+            border: 1px dashed #ddd;
+            color: white;
+            border-radius: 3px;
+            min-width: 40%;
+            padding: 5px;
+            margin: 5px;
+            user-select: all;
+            appearance: none;
+        }
+
+        input {
+            background-color: #282923;
+            color: #fff;
+            border: none;
+            margin: none;
+            padding: none;
+            border-color: #282923;
+            width: 100%;
+        }
+
+        #webi:hover {
+            background-color: #4d4d4d;
+        }
+
+        #webi:active {
+            background-color: #777;
+        }
+    </style>
+    <div class="titlebar">
+        <img src="../bin/icon.png" height="20" style="margin-top: 6px;margin-left: 8px;">
+        <span id="titletext"></span>
+        <img src="img/window/Close.svg" class="controlbtn" id="closebtn">
+        <img src="img/window/defull.png" class="controlbtn" id="defullbtn" style="display: none;" onclick="elect.ipcRenderer.send('fullscr');">
+    </div>
+    <div class="panelistic_space"></div>
+    <p style="display: inline;">欢迎来到小喵国际浏览器！<br>如果您有激活码，请直接输入<br>若您没有激活码，请点击购买。<br>注：一个激活码绑定一台电脑，<br>若需绑定多台电脑，<br>或购买多月，<br>可购买多个激活码。</p>
+    <table class="panelistic_btngroup" id="panelistic_btngroup">
+        <tr>
+            <td class="panelistic" onclick="nothing()">版本</td>
+            <td class="panelistic" onclick="nothing()">教育版</td>
+            <td class="panelistic" onclick="nothing()">标准版</td>
+            <td class="panelistic" onclick="nothing()">专业版</td>
+        </tr>
+        <tr>
+            <td class="panelistic" onclick="nothing()">支持</td>
+            <td class="panelistic" onclick="nothing()">支持访问教育网站</td>
+            <td class="panelistic" onclick="nothing()">支持访问大多网站</td>
+            <td class="panelistic" onclick="nothing()">支持访问全部网站</td>
+        </tr>
+        <tr>
+            <td class="panelistic" onclick="nothing()">示例</td>
+            <td class="panelistic" onclick="nothing()">scratch.mit.edu<br>wikipedia.com</td>
+            <td class="panelistic" onclick="nothing()">twitter.com<br>facebook.com</td>
+            <td class="panelistic" onclick="nothing()">youtube.com<br>twitch.com</td>
+        </tr>
+        <tr>
+            <td class="panelistic" onclick="nothing()">价格</td>
+            <td class="panelistic" onclick="nothing()">0.50元/月</td>
+            <td class="panelistic" onclick="nothing()">4.00元/月</td>
+            <td class="panelistic" onclick="nothing()">6.00元/月</td>
+        </tr>
+        <tr>
+            <td class="panelistic" onclick="nothing()">查看</td>
+            <td class="panelistic" onclick="edulist()">查看可访问网站</td>
+            <td class="panelistic" onclick="stlist()">查看可访问网站</td>
+            <td class="panelistic" onclick="gfwlist()">查看可访问网站</td>
+        </tr>
+        <tr>
+            <td class="panelistic" onclick="nothing()">购买</td>
+            <td class="panelistic" onclick="shell.openExternal('https://www.pkfaka.com/details/15CA507F')">购买激活码</td>
+            <td class="panelistic" onclick="shell.openExternal('https://www.pkfaka.com/details/8F3ADD27')">购买激活码</td>
+            <td class="panelistic" onclick="shell.openExternal('https://www.pkfaka.com/details/89A93D28')">购买激活码</td>
+        </tr>
+        <tr>
+            <td class="panelistic" colspan="4"><input onclick="this.select()" id="webi" tabindex="-1" type="text" placeholder="请输入您的激活码" style="width: 100%;
+            height: 24px;outline: none; "></td>
+        </tr>
+        <tr>
+            <td class="panelistic" onclick="nothing()">激活</td>
+            <td class="panelistic" onclick="applyedu(__('webi'))">应用激活码</td>
+            <td class="panelistic" onclick="applystandard(__('webi'))">应用激活码</td>
+            <td class="panelistic" onclick="applyexpert(__('webi'))">应用激活码</td>
+        </tr>
+    </table>
+    <br>
+    <p style="display: inline;">请先输入激活码（Ctrl+V粘贴），再根据激活码类型选择对应版本激活即可。</p>
+    <br>
+    <script>
+        const $ = require('./jqmin.js')
+        function nothing() {
+
+        }
+
+        function _(thi) {
+            return document.getElementById(thi);
+        }
+
+        function __(thi) {
+            return document.getElementById(thi).value;
+        }
+    </script>
+    <script src="buy.js"></script>
+</body>
+
+</html>

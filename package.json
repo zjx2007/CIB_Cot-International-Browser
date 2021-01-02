@@ -1,0 +1,20 @@
+{
+  "name": "COTInternationalBrowser",
+  "version": "0.0.0",
+  "description": "跨越围墙，携手世界",
+  "main": "index.js",
+  "devDependencies": {
+    "electron": "^10.1.6"
+  },
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-packager . Cot-International-Browser --win --out ./built --app-version 1.0.3 --overwrite --icon bin/icon.png --asar   &&   xcopy bin built\\Cot-International-Browser-win32-x64\\bin\\"
+  },
+  "author": "Cot",
+  "dependencies": {
+    "electron-store": "^6.0.1",
+    "node-cmd": "^3.0.0",
+    "request": "^2.88.2",
+    "smalltalk": "^4.0.7"
+  }
+}
