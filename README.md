@@ -4,11 +4,9 @@
 Unblock websites in China.
 ## Intro
 Unblock websites in China in a cheaper way.  
-You only have to pay at least ￥0.5 for a month.
-## How to use
+## Run With Public Server
 Download the app from release to use it directly if you want to use our public server. 
-However, the public server doesn't seem to be worked.   
-Okay, if you want to hack us, follow the following steps.  
+However, the public server doesn't seem to be worked.  
 Clone the repo to a local directory, and edit the content of conf.js .  
 If you want to use it with our public server, fill this in.  
 ```
@@ -20,7 +18,7 @@ exports.confg = {
 	"route2": ""
 }
 ```
-Or, if you want to build your own server,  
+## Build Your Own Server
 Create a Worker on cloudflare, and copy the following code which is from [JSProxy](https://github.com/EtherDream/jsproxy) and paste it into two Workers in Cloudflare (Cloudflare Workers are really free).
 ```
 'use strict'
@@ -324,6 +322,11 @@ exports.confg = {
 	"route2": "/*Address of your worker 2*/"
 }
 ```
-Finally, open the browser to enjoy your journey.
+Then, build the browser.
+```
+$ npm install
+$ npm start
+```
+Enjoy your journey!
 ## Credits
 [Electron](https://github.com/electron/electron "Electron").
